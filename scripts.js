@@ -8,9 +8,10 @@ let app = {
   addItem: function (item) {
     const ul = document.querySelector(".todo-list");
     ul.innerHTML = "";
-    this.todos.push(item + " ");
+    this.todos.push(item);
   },
   removeItem: function(index) {
+    
     this.todos.pop(index);
   },
   editItem: function(index, input) {
@@ -20,12 +21,8 @@ let app = {
     this.todos.forEach(item => {
       // for each to do item, display it as a li
       const ul = document.querySelector(".todo-list");
-      let li = document.createElement("li");
-      li.innerHTML = item;
-      let checkbox = document.createElement("input");
-      checkbox.type = "checkbox";
-      ul.appendChild(li);
-      li.appendChild(checkbox);
+      let text = `<li><i id="checkbox" class="far fa-circle"></i> ${item}</li>`;
+      ul.insertAdjacentHTML("beforeend", text)
     });
   },
 }
