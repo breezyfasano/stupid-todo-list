@@ -10,26 +10,30 @@ let app = {
     ul.innerHTML = "";
     this.todos.push(item);
   },
-  removeItem: function(index) {
-    
-    this.todos.pop(index);
-  },
-  editItem: function(index, input) {
-    this.todos[index] = input;
-  },
-  displayList: function() {
+  displayList: function () {
     this.todos.forEach(item => {
       // for each to do item, display it as a li
       const ul = document.querySelector(".todo-list");
-      let text = `<li><i id="checkbox" class="far fa-circle"></i> ${item}</li>`;
+      let text = `<li><i id="checkbox" class="far fa-circle" onclick="app.removeItem()"></i> ${item}</li>`;
       ul.insertAdjacentHTML("beforeend", text)
     });
   },
 }
 
-inputButton.addEventListener("click", function () {
+document.addEventListener('click', function (e) {
+  if (e.target && e.target.id == 'checkbox') {
+    if (e.target.classList.contains('fa-circle')) {
+      // e.target.classList.toggle('fa-circle');
+      e.target.classList.toggle('fa-check-circle');
+    } else if (e.target.classList.contains('fa-check-circle')) {
+      // e.target.classList.toggle('fa-check-circle');
+      e.target.classList.toggle('fa-circle');
+    }
+  }
+});
+
+inputButton.addEventListener('click', function () {
   app.addItem(itemInput.value); //adds whatever is in input box
   app.displayList(); // refreshes list
   itemInput.value = ""; // clears out input box
 });
-
