@@ -42,7 +42,6 @@ let app = {
     itemInput.value = ""; // clears out input box
   },
   displayList: function() {
->>>>>>> develop
     this.todos.forEach(item => {
       let returnChecked = () => {
         if (!item.done) {
@@ -51,7 +50,6 @@ let app = {
       };
       // for each to do item, display it as a li
       let text = `<li><i id="${item.id}" class="checkbox far ${returnChecked()}"></i><span> ${sanitizeString(item.content)}</span></li>`;
->>>>>>> develop
       ul.insertAdjacentHTML("beforeend", text)
     });
   },
