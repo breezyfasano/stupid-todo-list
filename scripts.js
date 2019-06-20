@@ -1,6 +1,6 @@
 'use strict';
 
-//variables & elements
+// get DOM elements
 const itemInput = document.querySelector("#inputNewToDo");
 const clearButton = document.querySelector('.clear');
 const inputButton = document.querySelector(".save");
@@ -8,8 +8,10 @@ const ul = document.querySelector(".todo-list");
 const input = document.getElementById('inputNewToDo');
 const addIcon = '<i class="fas fa-plus" style="color: white;"></i> ';
 
+// variables
 const checked = "fa-check-circle";
 const unchecked = "fa-circle";
+let id = 0;
 
 function sanitizeString(str) {
   str = str.replace(/[^a-z0-9áéíóúñü \.,_-]/gim, "");
@@ -27,13 +29,13 @@ function sanitizeString(str){
 let app = {
   todos: [],
   todoItem: {
-    content: "", id: 0, done: false
+    content: "", id: id, done: false
   },
   addItem: function(item) {    
     ul.innerHTML = "";
     let task = Object.create(this.todoItem);
     task.content = item;
-    task.id = this.todoItem.id++;
+    task.id = id++; // every time addItem runs, the id variable is incremented to match index of todos array
     task.done = false;
     if (item) { //makes sure input is not blank
       this.todos.push(task);
@@ -43,19 +45,20 @@ let app = {
   },
   displayList: function() {
     this.todos.forEach(item => {
-      let returnChecked = () => {
+      let returnChecked = () => { // function for returning proper class name of (un)checked depending on done property of todos array item
         if (!item.done) {
           return unchecked;
         } else return checked;
       };
-      // for each to do item, display it as a li
+      // for each to do item, display it as a li bound to an object inside of todos array
       let text = `<li><i id="${item.id}" class="checkbox far ${returnChecked()}"></i><span> ${sanitizeString(item.content)}</span></li>`;
       ul.insertAdjacentHTML("beforeend", text)
     });
   },
   clearList: function() {
     ul.innerHTML = '';
-    this.todos = [];
+    id = 0; // resets id var to 0 to match index of new array items created after clearing
+    this.todos = []; // clears out items in logic layer
   }
 }
 
@@ -75,7 +78,7 @@ clearButton.addEventListener('click', function() {
 
 
 document.addEventListener("keyup", function (event) {
-  if (event.keyCode == 13) {
+  if (event.keyCode == 13) { // if user presses enter key, add in a new todo item
     app.addItem(itemInput.value)
   }
 });
