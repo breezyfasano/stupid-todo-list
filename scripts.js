@@ -3,6 +3,7 @@
 // get DOM elements
 const itemInput = document.querySelector("#inputNewToDo");
 const clearButton = document.querySelector('.clear');
+const saveButton = document.querySelector('.save-button');
 const inputButton = document.querySelector(".save");
 const ul = document.querySelector(".todo-list");
 const input = document.getElementById('inputNewToDo');
@@ -74,6 +75,10 @@ document.addEventListener('click', function(event) {
 
 clearButton.addEventListener('click', function() {
   app.clearList();
+});
+
+saveButton.addEventListener('click', function() {
+  app.addItem(itemInput.value)
 });
 
 
